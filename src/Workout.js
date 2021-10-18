@@ -21,6 +21,15 @@ class Workout extends React.Component {
     };
   }
 
+  cloneRecordsFromState() {
+    const records = [];
+    for (const { id, date, distance } of this.state.records) {
+      records.push({ id, date, distance });
+    }
+
+    return records;
+  }
+
   handleRemove = (evt, id) => {
     const records = this.state.records.filter((record) => record.id !== id);
     this.setState({ records });
@@ -30,7 +39,7 @@ class Workout extends React.Component {
     const dateValue = evt.target.date.value;
     const distanceValue = Number(evt.target.distance.value);
 
-    const records = this.state.records;
+    const records = this.cloneRecordsFromState();
     const existingRecord = records.find(({ date }) => date === dateValue);
     if (existingRecord) {
       // update existing record for that date
